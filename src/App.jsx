@@ -1344,9 +1344,12 @@ export default function BioAnthStudy() {
   }
 
   const imgKey = `${lecture.id}-${safeSection}`;
+  const layoutMaxWidth = "min(1180px, 100%)";
+  const contentMaxWidth = "min(1000px, 100%)";
+  const layoutPadding = "clamp(0.75rem, 2.5vw, 1.5rem)";
 
   return (
-    <div style={{ minHeight: "100vh", background: "#07070e", fontFamily: "'DM Sans', sans-serif", color: "white" }}>
+    <div style={{ minHeight: "100vh", width: "100%", overflowX: "hidden", background: "#07070e", fontFamily: "'DM Sans', sans-serif", color: "white" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
         *{box-sizing:border-box;margin:0;padding:0;}
@@ -1366,42 +1369,52 @@ export default function BioAnthStudy() {
       `}</style>
 
       {/* Header */}
-      <div style={{ background: "#09091a", borderBottom: "1px solid #141428", padding: "1.1rem 1.5rem 0.9rem" }}>
-        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.15rem,2.4vw,1.7rem)", fontWeight: 900, letterSpacing: "-.02em", background: "linear-gradient(130deg,#fff 30%,#777)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-          Biological Anthropology — Exam Prep
-        </h1>
-        <p style={{ color: "#444", fontSize: "0.75rem", marginTop: "0.18rem" }}>{LECTURES.length} Lectures · Notes · Diagrams · Flashcards · Quizzes</p>
+      <div style={{ background: "#09091a", borderBottom: "1px solid #141428", padding: "1.1rem 0 0.9rem" }}>
+        <div style={{ width: layoutMaxWidth, margin: "0 auto", padding: `0 ${layoutPadding}` }}>
+          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.15rem,2.4vw,1.7rem)", fontWeight: 900, letterSpacing: "-.02em", background: "linear-gradient(130deg,#fff 30%,#777)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            Biological Anthropology — Exam Prep
+          </h1>
+          <p style={{ color: "#444", fontSize: "0.75rem", marginTop: "0.18rem" }}>{LECTURES.length} Lectures · Notes · Diagrams · Flashcards · Quizzes</p>
+        </div>
       </div>
 
       {/* Lecture Tabs */}
-      <div style={{ display: "flex", overflowX: "auto", gap: "0.45rem", padding: "0.7rem 1.5rem", background: "#09091a", borderBottom: "1px solid #141428", scrollbarWidth: "none" }}>
-        {LECTURES.map((lec, i) => (
-          <button key={i} className="lb" onClick={() => setActiveLecture(i)} style={{
-            flexShrink: 0, padding: "0.45rem 0.85rem", borderRadius: "9px", fontSize: "0.76rem", fontWeight: 600,
-            border: activeLecture === i ? `2px solid ${lec.color}` : "2px solid #1a1a28",
-            background: activeLecture === i ? `${lec.color}18` : "#0e0e1a",
-            color: activeLecture === i ? lec.color : "#555",
-          }}>
-            {lec.emoji} L{lec.id}: {lec.title.split(" ").slice(0, 3).join(" ")}
-          </button>
-        ))}
+      <div style={{ background: "#09091a", borderBottom: "1px solid #141428", padding: "0.7rem 0" }}>
+        <div style={{ width: layoutMaxWidth, margin: "0 auto", padding: `0 ${layoutPadding}` }}>
+          <div style={{ display: "flex", overflowX: "auto", gap: "0.45rem", scrollbarWidth: "none" }}>
+            {LECTURES.map((lec, i) => (
+              <button key={i} className="lb" onClick={() => setActiveLecture(i)} style={{
+                flexShrink: 0, padding: "0.45rem 0.85rem", borderRadius: "9px", fontSize: "0.76rem", fontWeight: 600,
+                border: activeLecture === i ? `2px solid ${lec.color}` : "2px solid #1a1a28",
+                background: activeLecture === i ? `${lec.color}18` : "#0e0e1a",
+                color: activeLecture === i ? lec.color : "#555",
+              }}>
+                {lec.emoji} L{lec.id}: {lec.title.split(" ").slice(0, 3).join(" ")}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Mode Tabs */}
-      <div style={{ display: "flex", gap: "0.38rem", padding: "0.7rem 1.5rem 0", flexWrap: "wrap" }}>
-        {availableModes.map(m => (
-          <button key={m} className="mb" onClick={() => setMode(m)} style={{
-            padding: "0.38rem 0.8rem", borderRadius: "7px", fontSize: "0.76rem", fontWeight: 600,
-            border: effectiveMode === m ? `1.5px solid ${lecture.color}` : "1.5px solid #1a1a28",
-            background: effectiveMode === m ? `${lecture.color}1e` : "transparent",
-            color: effectiveMode === m ? lecture.color : "#4a4a6a",
-          }}>
-            {m === "Overview" ? "📖 Notes" : m === "Flashcards" ? "🃏 Flashcards" : m === "Quiz" ? "✅ Quiz" : m === "Vocabulary" ? "📚 Vocabulary" : "👤 People"}
-          </button>
-        ))}
+      <div style={{ padding: "0.7rem 0 0" }}>
+        <div style={{ width: layoutMaxWidth, margin: "0 auto", padding: `0 ${layoutPadding}` }}>
+          <div style={{ display: "flex", gap: "0.38rem", flexWrap: "wrap" }}>
+            {availableModes.map(m => (
+              <button key={m} className="mb" onClick={() => setMode(m)} style={{
+                padding: "0.38rem 0.8rem", borderRadius: "7px", fontSize: "0.76rem", fontWeight: 600,
+                border: effectiveMode === m ? `1.5px solid ${lecture.color}` : "1.5px solid #1a1a28",
+                background: effectiveMode === m ? `${lecture.color}1e` : "transparent",
+                color: effectiveMode === m ? lecture.color : "#4a4a6a",
+              }}>
+                {m === "Overview" ? "📖 Notes" : m === "Flashcards" ? "🃏 Flashcards" : m === "Quiz" ? "✅ Quiz" : m === "Vocabulary" ? "📚 Vocabulary" : "👤 People"}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
-      <div style={{ padding: "1.1rem 1.5rem 4rem", maxWidth: "860px" }}>
+      <div style={{ width: contentMaxWidth, margin: "0 auto", padding: `1.1rem ${layoutPadding} 4rem` }}>
         <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1rem,2.3vw,1.45rem)", fontWeight: 700, margin: "0 0 1.1rem", color: lecture.color }}>
           {lecture.emoji} Lecture {lecture.id}: {lecture.title}
         </h2>
